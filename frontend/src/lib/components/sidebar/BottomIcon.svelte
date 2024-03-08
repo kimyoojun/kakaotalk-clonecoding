@@ -35,7 +35,7 @@
         margin: 0;
     }
 
-    .bottom-button-wrap img {
+    #side-menu-icon {
         width: 18px;
     }
 </style>
