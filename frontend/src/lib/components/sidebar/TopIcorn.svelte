@@ -1,10 +1,15 @@
 <script>
     export let topIconTitle = ""
     export let topIcon = ""
+    export let pageMove = ""
+
+    const click = () => {
+        window.location.href = pageMove
+    }
 </script>
 
 <div class="top-button-wrap">
-    <button title={topIconTitle}>
+    <button title={topIconTitle} on:click={click}>
         <img src={topIcon} alt="Icon" id="side-menu-icon"/>
     </button>
 </div>
