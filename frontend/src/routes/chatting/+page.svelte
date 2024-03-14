@@ -1,8 +1,24 @@
 <script>
-    import TopIcon from "$lib/components/chatting/TopIcon.svelte";
-    import BottomIcon from "$lib/components/chatting/BottomIcon.svelte";
+    import TopIcon from "$lib/components/chatting/TopIcon.svelte"
+    import BottomIcon from "$lib/components/chatting/BottomIcon.svelte"
+    import SpeechBubble from "$lib/components/SpeechBubble.svelte"
+    
+    import axios from "axios"
 
-    export let texts = ""
+    let mySpeech = ""
+    let myMessage = ""
+
+    const sendClick = async () => {
+        console.log("a")
+        const msgBubble = await axios.post("http://127.0.0.1:8000/message", {"message": mySpeech})
+
+        if (msgBubble.status == 200) {
+            console.log("메세지 전송에 성공하였습니다")
+        }
+
+        const msgValue = await axios.get("http://127.0.0.1:8000/message/window")
+        myMessage = msgValue.data.message
+    }
 </script>
 
 <div class="chatting-wrap">
@@ -21,10 +37,10 @@
         </div>
     </div>
     <div class="chat-window-wrap">
-
+        <SpeechBubble mySpeechBubble={myMessage}/>
     </div>
     <div class="text-input-wrap">
-        <input bind:value={texts}/>
+        <input bind:value={mySpeech}/>
         <div class="chatting-bottom-wrap">
             <div class="chatting-bottom-icon-wrap">
                 <BottomIcon textBottomIcon="/icons/sidebar/face.svg"/>
@@ -32,7 +48,7 @@
                 <BottomIcon textBottomIcon="/icons/file.svg"/>
             </div>
             <div class="message-go-wrap">
-                <button class="message-go">전송</button>
+                <button class="message-go" on:click={sendClick}>전송</button>
             </div>
         </div>
     </div>
@@ -91,11 +107,14 @@
     .chat-window-wrap {
         width: 100%;
         flex-grow: 1;
+        display: flex;
+        align-items: flex-end;
     }
 
     .text-input-wrap {
         width: 100%;
         height: 110px;
+        padding-top: 20px;
     }
 
     .text-input-wrap input {
