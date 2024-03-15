@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from routes.message_box import message_box
 from db.database import init_db
+from routes.auth import register
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(message_box.router)
+app.include_router(register.router)
 
 @app.get("/")
 def read_root():
