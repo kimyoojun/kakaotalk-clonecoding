@@ -9,7 +9,6 @@
     let myMessage = ""
 
     const sendClick = async () => {
-        console.log("a")
         const msgBubble = await axios.post("http://127.0.0.1:8000/message", {"message": mySpeech})
 
         if (msgBubble.status == 200) {
@@ -18,6 +17,7 @@
 
         const msgValue = await axios.get("http://127.0.0.1:8000/message/window")
         myMessage = msgValue.data.message
+        console.log(myMessage)
     }
 </script>
 
