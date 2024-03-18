@@ -25,14 +25,18 @@ async def register_user(req:IRegister):
   if not req.pw:
     return JSON({"msg": "비밀번호를 입력하세요"}, 400)
   
-  
+  HASH_KEY = "4ab2fce7a6bd79e1c014396315ed322dd6edb1c5d975c6b74a2904135172c03c"
+
   
   user = User(
     name=req.name,
     email=req.email,
     id=req.id,
-    pw=req.pw
+    pw=req.pw + 'a',
+    token = (req.id + req.name + req.email).upper() + HASH_KEY
   )
+
+
 
   try:
     with Session(engine) as session:
