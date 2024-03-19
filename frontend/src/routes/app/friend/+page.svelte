@@ -1,9 +1,20 @@
 <script>
     import MyProfile from "$lib/components/MyProfile.svelte";
     import Profile from "$lib/components/Profile.svelte";
+    import { onMount } from "svelte";
+    import FriendAddModel from "$lib/components/FriendAddModel.svelte"
+
+    let username = ""
+    let usertoken = ""
+    let frinedAdd = true
+
+    onMount(async () => {
+        username = localStorage.getItem('username')
+        usertoken = localStorage.getItem('token')
+    })
 
     const clicke = () => {
-        window.open('/chatting')
+        // window.open('/chatting')
     }
 </script>
 
@@ -16,16 +27,19 @@
             <div class="friend-icon-wrap">
                 <img src="/icons/searched.svg" alt="Icon" title="통합검색" id="friend-top-icon"/>
             </div>
-            <div class="friend-icon-wrap">
+            <button class="friend-icon-wrap">
                 <img src="/icons/plus-circle.svg" alt="Icon" title="친구 추가" id="friend-top-icon"/>
-            </div>
+            </button>
         </div>  
     </div>
-    <MyProfile myProfileImg="/icons/초전도치.png" myProfileName="김유준" myProfileMessage="출근시러 퇴근조아"/>
+    <MyProfile myProfileImg="/icons/초전도치.png" myProfileName="{username}" myProfileMessage="출근시러 퇴근조아"/>
     <Profile profileImg="/icons/초전도치.png" profileName="현석" profileMessage="집에가고싶다"/>
     <Profile profileImg="/icons/초전도치.png" profileName="미누" profileMessage="애누미누"/>
     <button on:click={clicke}>채팅창</button>
 </div>
+{#if frinedAdd}
+  <FriendAddModel/>
+{/if}
 
 <style>
     .friend-wrap {
@@ -57,6 +71,8 @@
         justify-content: center;
         border-radius: 50%;
         cursor: pointer;
+        border: none;
+        background-color: transparent;
     }
 
     #friend-top-icon {
