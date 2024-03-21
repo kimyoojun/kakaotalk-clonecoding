@@ -2,7 +2,6 @@
   import InputBox from "$lib/components/InputBox.svelte"
   import Btn from "$lib/components/Btn.svelte"
   import axios from "axios";
-  import { userName, accessToken, isLogin } from "$lib/store/login.js";
 
   let loginId = ""
   let loginPw = ""
@@ -12,9 +11,8 @@
     
     if (loginAPI.status == 200){
       window.location.href="/app/friend"
-      $userName = loginAPI.data[1].name
-      $accessToken = loginAPI.data[1].token
-      $isLogin = true
+      localStorage.setItem('username', loginAPI.data[1].name)
+      localStorage.setItem('token',loginAPI.data[1].token)
     }
   }
 
@@ -34,6 +32,7 @@
     <a href="/register" class="register-go">회원가입</a>
   </div>
 </div>
+
 
 <style>
   .login-wrap {
