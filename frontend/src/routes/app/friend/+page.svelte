@@ -3,10 +3,10 @@
     import Profile from "$lib/components/Profile.svelte";
     import { onMount } from "svelte";
     import FriendAddModel from "$lib/components/FriendAddModel.svelte"
+    import { isToggleStore } from "$lib/stores/friendAdd";
 
     let username = ""
     let usertoken = ""
-    let frinedAdd = true
 
     onMount(async () => {
         username = localStorage.getItem('username')
@@ -14,7 +14,11 @@
     })
 
     const clicke = () => {
-        // window.open('/chatting')
+        window.open('/chatting')
+    }
+
+    const friendAddClick = () => {
+        $isToggleStore.friendAdd = !$isToggleStore.friendAdd
     }
 </script>
 
@@ -27,7 +31,7 @@
             <div class="friend-icon-wrap">
                 <img src="/icons/searched.svg" alt="Icon" title="통합검색" id="friend-top-icon"/>
             </div>
-            <button class="friend-icon-wrap">
+            <button class="friend-icon-wrap" on:click={friendAddClick}>
                 <img src="/icons/plus-circle.svg" alt="Icon" title="친구 추가" id="friend-top-icon"/>
             </button>
         </div>  
@@ -37,8 +41,8 @@
     <Profile profileImg="/icons/초전도치.png" profileName="미누" profileMessage="애누미누"/>
     <button on:click={clicke}>채팅창</button>
 </div>
-{#if frinedAdd}
-  <FriendAddModel/>
+{#if $isToggleStore.friendAdd}
+    <FriendAddModel/>
 {/if}
 
 <style>
