@@ -5,15 +5,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.message_box import message_box
 from routes.auth import register
 from routes.auth import login
-from db.database import init_db, drop_db
+from db.database import init_db
+from routes.friend_add import friend_add
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     print("API starting up")
     await init_db()
     yield
-    print("API shutting down")
-    await drop_db()
 
 
 app = FastAPI(lifespan=lifespan)
@@ -34,6 +33,7 @@ app.add_middleware(
 app.include_router(message_box.router)
 app.include_router(register.router)
 app.include_router(login.router)
+app.include_router(friend_add.router)
 
 @app.get("/")
 def read_root():
