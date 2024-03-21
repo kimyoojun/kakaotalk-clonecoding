@@ -4,12 +4,12 @@ from starlette.responses import JSONResponse as JSON
 
 from db.database import engine
 from models.message import Message
-from schemas.speech import Imessage
+from schemas.speech import IMessage
 
 router = APIRouter(prefix="/message", tags=["message"])
 
 @router.post("/")
-async def my_message(req: Imessage):
+async def my_message(req: IMessage):
   if not req.message:
     return JSON({"msg": "메세지를 입력해주세요."}, 400)
   

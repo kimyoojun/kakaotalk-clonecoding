@@ -1,11 +1,11 @@
 <script>
   import InputBox from "$lib/components/InputBox.svelte"
-  import Btn from "$lib/components/btn.svelte"
+  import Btn from "$lib/components/Btn.svelte"
   import axios from "axios";
 
-  let registerName = ""
   let registerEmail = ""
   let registerId = ""
+  let registerName = ""
   let registerPw = ""
 
   const registerbtn = async () => {
@@ -13,7 +13,7 @@
     
     const registerAPI = await axios.post("http://127.0.0.1:8000/auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
     if (registerAPI.status == 200) {
-      console.log("용우가 그랬어요")
+      window.location.href="/"
     }
 
   }

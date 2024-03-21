@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
 
-class Imessage(BaseModel):
+class IMessage(BaseModel):
   message: str
+
