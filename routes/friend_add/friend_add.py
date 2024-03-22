@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 from sqlmodel import Session, select, update
 from starlette.responses import JSONResponse as JSON
-import uuid
 
 from models.user import User
 from schemas.friend_add import IUsersearch, IUseradd
 from db.database import engine
+from models.message import Message
 
 router = APIRouter(prefix="/user", tags=["add"])
 
@@ -35,32 +35,16 @@ async def friend_add_btn(req:IUseradd):
     user_infrom = session.exec(select_useer)
     user = user_infrom.one()
 
-    chat_uuid = uuid.uuid1()
-    chat_id = str(chat_uuid)
-
     if user.friends is None:
       ufriendlist = []
     else:
       ufriendlist = user.friends
     ufriendlist.append(req.my_name)
 
-    if my.chats is None:
-      chatlist = []
-    else:
-      chatlist = my.chats
-    chatlist.append(chat_id)
-
-    if user.chats is None:
-      uchatlist = []
-    else:
-      uchatlist = user.chats
-    uchatlist.append(chat_id)
-    
-    
 
   try:
-      update_my = update(User).where(User.name == req.my_name).values(friends = friendlist, chats = chatlist)
-      update_user = update(User).where(User.name == req.user_name).values(friends = ufriendlist, chats = uchatlist)
+      update_my = update(User).where(User.name == req.my_name).values(friends = friendlist)
+      update_user = update(User).where(User.name == req.user_name).values(friends = ufriendlist)
       session.exec(update_my)
       session.exec(update_user)
       session.commit()
