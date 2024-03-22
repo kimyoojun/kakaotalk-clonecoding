@@ -9,13 +9,18 @@
     let username = ""
     let usertoken = ""
     let friendsList = ""
+    let myuuid = ""
 
     onMount(async () => {
         username = localStorage.getItem('username')
         usertoken = localStorage.getItem('token')
+        myuuid = localStorage.getItem('myuuid')
+
         const friendList = await axios.post("http://127.0.0.1:8000/friendlist",{"my_token": usertoken})
+
         friendsList = friendList.data
-        console.log(friendsList)
+        
+        console.log(friendList.data)
     }) 
 
     const friendAddClick = () => {
@@ -23,7 +28,8 @@
     }
 
     const chatMove = async () => {
-        window.open('/chatting')
+        // const chatting = await axios.post("http://127.0.0.1:8000/message", {})
+        console.log("이동")
     }
 </script>
 
@@ -43,7 +49,7 @@
     </div>
     <MyProfile myProfileImg="/icons/초전도치.png" myProfileName="{username}" myProfileMessage="출근시러 퇴근조아"/>
     {#each friendsList as friend}
-    <button class="profile-wrap" on:clicke={chatMove}>
+    <button class="profile-wrap" on:click={chatMove}>
         <Profile profileImg="/icons/초전도치.png" profileName="{friend}" profileMessage="권모술수"/>
     </button>
     {/each}
