@@ -4,7 +4,7 @@
     export let profileMessage = ""
 </script>
 
-<button class="profile-wrap">
+<div class="profile-wrap">
     <div class="img-wrap">
         <img src={profileImg} alt="Profile" id="profile-img"/>
     </div>
@@ -12,16 +12,13 @@
         <h4 class="profile-name">{profileName}</h4>
         <div class="status-message">{profileMessage}</div>
     </div>
-</button>
+</div>
 
 <style>
     .profile-wrap {
         width: 100%;
         height: 50px;
         display: flex;
-        background-color: transparent;
-        border: none;
-        padding: 0;
     }
 
     .profile-wrap:hover {
