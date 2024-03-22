@@ -1,6 +1,7 @@
 from starlette.responses import JSONResponse as JSON
 from sqlmodel import Session
 from fastapi import APIRouter
+import uuid
 
 from schemas.auth import IRegister
 from models.user import User
@@ -26,9 +27,10 @@ async def register_user(req:IRegister):
     return JSON({"msg": "비밀번호를 입력하세요"}, 400)
   
   HASH_KEY = "4ab2fce7a6bd79e1c014396315ed322dd6edb1c5d975c6b74a2904135172c03c"
-
+  user_uuid = uuid.uuid1()
   
   user = User(
+    uuid=str(user_uuid),
     name=req.name,
     email=req.email,
     id=req.id,
