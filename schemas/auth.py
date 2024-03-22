@@ -7,6 +7,8 @@ class IRegister(BaseModel):
   id: str = Field(...)
   pw: str = Field(...)
   token: Optional[str] = None 
+  friends: Optional[str] = None 
+  chats: Optional[str] = None 
 
 class ILogin(BaseModel):
   id: str = Field(...)
