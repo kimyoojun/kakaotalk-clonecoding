@@ -7,12 +7,16 @@ from routes.auth import register
 from routes.auth import login
 from db.database import init_db
 from routes.friend_add import friend_add
+from routes import friend_list
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     print("API starting up")
     await init_db()
     yield
+    # await drop_db()
+    # yield
+    
 
 
 app = FastAPI(lifespan=lifespan)
@@ -34,6 +38,7 @@ app.include_router(message_box.router)
 app.include_router(register.router)
 app.include_router(login.router)
 app.include_router(friend_add.router)
+app.include_router(friend_list.router)
 
 @app.get("/")
 def read_root():
