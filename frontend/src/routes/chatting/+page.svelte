@@ -9,7 +9,7 @@
     let myMessage = ""
 
     const sendClick = async () => {
-        const msgBubble = await axios.post("http://127.0.0.1:8000/message", {"message": mySpeech})
+        const msgBubble = await axios.post("http://127.0.0.1:8000/message/send", {"message": mySpeech})
 
         if (msgBubble.status == 200) {
             console.log("메세지 전송에 성공하였습니다")
