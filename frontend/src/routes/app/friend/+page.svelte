@@ -4,21 +4,26 @@
     import { onMount } from "svelte";
     import FriendAddModel from "$lib/components/FriendAddModel.svelte"
     import { isToggleStore } from "$lib/stores/friendAdd";
+    import axios from "axios"
 
     let username = ""
     let usertoken = ""
+    let friendsList = ""
 
     onMount(async () => {
         username = localStorage.getItem('username')
         usertoken = localStorage.getItem('token')
-    })
-
-    const clicke = () => {
-        window.open('/chatting')
-    }
+        const friendList = await axios.post("http://127.0.0.1:8000/friendlist",{"my_token": usertoken})
+        friendsList = friendList.data
+        console.log(friendsList)
+    }) 
 
     const friendAddClick = () => {
         $isToggleStore.friendAdd = !$isToggleStore.friendAdd
+    }
+
+    const chatMove = async () => {
+        window.open('/chatting')
     }
 </script>
 
@@ -37,9 +42,11 @@
         </div>  
     </div>
     <MyProfile myProfileImg="/icons/초전도치.png" myProfileName="{username}" myProfileMessage="출근시러 퇴근조아"/>
-    <Profile profileImg="/icons/초전도치.png" profileName="현석" profileMessage="집에가고싶다"/>
-    <Profile profileImg="/icons/초전도치.png" profileName="미누" profileMessage="애누미누"/>
-    <button on:click={clicke}>채팅창</button>
+    {#each friendsList as friend}
+    <button class="profile-wrap" on:clicke={chatMove}>
+        <Profile profileImg="/icons/초전도치.png" profileName="{friend}" profileMessage="권모술수"/>
+    </button>
+    {/each}
 </div>
 {#if $isToggleStore.friendAdd}
     <FriendAddModel/>
@@ -85,5 +92,13 @@
 
     .friend-title {
         margin: 0;
+    }
+    
+    .profile-wrap {
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        border: none;
+        padding: 0;
     }
 </style>
