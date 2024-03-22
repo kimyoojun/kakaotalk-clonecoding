@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from sqlmodel import Session, select
+from sqlmodel import Session, select, update
 from starlette.responses import JSONResponse as JSON
 
 from models.user import User
@@ -21,13 +21,15 @@ async def friend_add_btn(req:IUseradd):
     select_my = select(User).where(User.name == req.my_name)
     my_inform = session.exec(select_my)
     my = my_inform.one()
-  
+    friendlist = my.friends
+    friendlist.append(req.user_name)
+    
+    
+
   try:
-    with Session(engine) as session:
-      my.friends = my.friends + ',' + req.user_name
-    session.add(my)
-    session.commit()
-    session.refresh(my)
+      update_my = update(User).where(User.name == req.my_name).values(friends = friendlist)
+      session.exec(update_my)
+      session.commit()
   except Exception as e:
     print(e)
     return JSON({"msg": "친구추가에 실패하였습니다."}, 500)
