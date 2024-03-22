@@ -13,6 +13,7 @@
       window.location.href="/app/friend"
       localStorage.setItem('username', loginAPI.data[1].name)
       localStorage.setItem('token',loginAPI.data[1].token)
+      localStorage.setItem('myuuid', loginAPI.data[1].uuid)
     }
   }
 
