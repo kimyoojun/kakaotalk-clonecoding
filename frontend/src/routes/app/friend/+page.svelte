@@ -11,6 +11,7 @@
     let friendsList = ""
     let myuuid = ""
 
+
     onMount(async () => {
         username = localStorage.getItem('username')
         usertoken = localStorage.getItem('token')
@@ -19,17 +20,19 @@
         const friendList = await axios.post("http://127.0.0.1:8000/friendlist",{"my_token": usertoken})
 
         friendsList = friendList.data
-        
-        console.log(friendList.data)
-    }) 
+    })
 
     const friendAddClick = () => {
         $isToggleStore.friendAdd = !$isToggleStore.friendAdd
     }
 
-    const chatMove = async () => {
-        // const chatting = await axios.post("http://127.0.0.1:8000/message", {})
-        console.log("이동")
+    const chatMove = async (i) => {
+        const chatting = await axios.post("http://127.0.0.1:8000/message", {"my_uuid": myuuid, "user_name": friendsList[i]})
+        localStorage.setItem('chatuseruuid', chatting.data[1].uuid)  
+        localStorage.setItem('chatuuid', chatting.data[2])
+        console.log(chatting)
+        window.location.href="http://localhost:5173/chatting"
+        
     }
 </script>
 
@@ -45,13 +48,13 @@
             <button class="friend-icon-wrap" on:click={friendAddClick}>
                 <img src="/icons/plus-circle.svg" alt="Icon" title="친구 추가" id="friend-top-icon"/>
             </button>
-        </div>  
+        </div>
     </div>
-    <MyProfile myProfileImg="/icons/초전도치.png" myProfileName="{username}" myProfileMessage="출근시러 퇴근조아"/>
-    {#each friendsList as friend}
-    <button class="profile-wrap" on:click={chatMove}>
-        <Profile profileImg="/icons/초전도치.png" profileName="{friend}" profileMessage="권모술수"/>
-    </button>
+    <MyProfile myProfileImg="/icons/초전도치.png" myProfileName={username} myProfileMessage="출근시러 퇴근조아"/>
+    {#each friendsList as friend, i}
+        <button class="profile-wrap" on:click={() => chatMove(i)}>
+            <Profile profileImg="/icons/초전도치.png" profileName={friend} profileMessage="권모술수"/>
+        </button>
     {/each}
 </div>
 {#if $isToggleStore.friendAdd}
@@ -99,7 +102,7 @@
     .friend-title {
         margin: 0;
     }
-    
+
     .profile-wrap {
         width: auto;
         height: auto;
