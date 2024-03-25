@@ -15,29 +15,46 @@ async def chatting(req:IMessage):
   with Session(engine) as session:
     useruuid = select(User).where(User.name == req.user_name)
     user_uuid_infrom = session.exec(useruuid)
-    user = user_uuid_infrom.one()
+    user = user_uuid_infrom.first()
 
-    if Message.participation_uuid != req.my_uuid and Message.participation_uuid != user.uuid:
 
-      chat_uuid = uuid.uuid1()
 
-      participation = []
-      participation.append(req.my_uuid)
-      participation.append(user.uuid)
+    is_user = select(Message).where(Message.user_list == [req.my_uuid, user.uuid])
+    is_uesrlist = session.exec(is_user)
+    userlist = is_uesrlist.first()
 
-      message = Message(
-        uuid=str(chat_uuid),
-        participation_uuid=participation
-      )
+    is_users = select(Message).where(Message.user_list == [user.uuid, req.my_uuid])
+    is_uesrslist = session.exec(is_users)
+    userslist = is_uesrslist.first()
+    
+  if userlist or userslist:
+    return "존재함"
+  else:
+    chat_uuid = uuid.uuid1()
 
-      my_chats_add = update(User).where(User.uuid == req.my_uuid).values(chats=str(chat_uuid))
-      user_chats_add = update(User).where(User.uuid == user.uuid).values(chats=str(chat_uuid))
+    participation = []
+    participation.append(req.my_uuid)
+    participation.append(user.uuid)
 
-      session.add(message)
-      session.exec(my_chats_add)
-      session.exec(user_chats_add)
-      session.commit()
-  return message
+    message = Message(
+      message='a',
+      uuid=str(chat_uuid),
+      user_list=participation
+    )
+
+    my_chats_add = update(User).where(User.uuid == req.my_uuid).values(chats=str(chat_uuid))
+    user_chats_add = update(User).where(User.uuid == user.uuid).values(chats=str(chat_uuid))
+
+    session.add(message)
+    session.exec(my_chats_add)
+    session.exec(user_chats_add)
+    session.commit()
+    return "채팅창 생성"
+    
+
+
+
+
     # my_chatting = select(Message).where(Message.participation_uuid == req.my_uuid and Message.participation_uuid == req.user_uuid)
     # chat_infrom = session.exec(my_chatting)
     # chat = chat_infrom.one()
