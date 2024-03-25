@@ -9,7 +9,7 @@
 </div>
 
 <style>
-  .speech-wrap {
+  /* .speech-wrap {
     width: 100%;
     height: auto;
     display: flex;
@@ -19,6 +19,28 @@
   .speech {
     background-color: #fef01b;
     margin-right: 32px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 8px 8px;
+    border-radius: 4px;
+  } */
+
+  .speech-wrap {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+
+  .speech {
+    background-color: #ffffff;
+    margin-left: 32px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,4 +49,5 @@
     padding: 8px 8px;
     border-radius: 4px;
   }
+
 </style>
