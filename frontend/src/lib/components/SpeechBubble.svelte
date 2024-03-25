@@ -9,7 +9,7 @@
 </div>
 
 <style>
-  /* .speech-wrap {
+  .speech-wrap {
     width: 100%;
     height: auto;
     display: flex;
@@ -18,8 +18,8 @@
 
   .speech {
     background-color: #fef01b;
-    margin-right: 32px;
-    margin-bottom: 24px;
+    margin-right: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,9 +27,9 @@
     height: auto;
     padding: 8px 8px;
     border-radius: 4px;
-  } */
+  }
 
-  .speech-wrap {
+  /* .speech-wrap {
     width: 100%;
     height: auto;
     display: flex;
@@ -39,8 +39,8 @@
 
   .speech {
     background-color: #ffffff;
-    margin-left: 32px;
-    margin-bottom: 24px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,6 +48,6 @@
     height: auto;
     padding: 8px 8px;
     border-radius: 4px;
-  }
+  } */
 
 </style>
