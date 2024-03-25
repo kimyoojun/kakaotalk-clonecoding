@@ -2,22 +2,30 @@
     import TopIcon from "$lib/components/chatting/TopIcon.svelte"
     import BottomIcon from "$lib/components/chatting/BottomIcon.svelte"
     import SpeechBubble from "$lib/components/SpeechBubble.svelte"
-    
+    import { onMount } from "svelte";
     import axios from "axios"
 
     let mySpeech = ""
-    let myMessage = ""
+    let chatUserUuid = ""
+    let chatUuid = ""
+    let userName = ""
+    let chatRecord = []
+
+    onMount(async () => {
+        chatUserUuid = localStorage.getItem("chatuseruuid")
+        chatUuid = localStorage.getItem("chatuuid")
+        const chatInform = await axios.post("http://127.0.0.1:8000/message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
+        console.log(chatInform)
+        userName = chatInform.data[0]
+        chatRecord = chatInform.data[1].message
+    })
 
     const sendClick = async () => {
-        const msgBubble = await axios.post("http://127.0.0.1:8000/message/send", {"message": mySpeech})
+        const msgBubble = await axios.post("http://127.0.0.1:8000/message/send", {"message": mySpeech, "chatuuid": chatUuid})
 
         if (msgBubble.status == 200) {
             console.log("메세지 전송에 성공하였습니다")
         }
-
-        const msgValue = await axios.get("http://127.0.0.1:8000/message/window")
-        myMessage = msgValue.data.message
-        console.log(myMessage)
     }
 </script>
 
@@ -27,7 +35,7 @@
             <img src="/icons/초전도치.png" alt="프로필사진" id="chatting-img"/>
         </div>
         <div class="chatting-title-wrap">
-            <div class="chatting-title">현석</div>
+            <div class="chatting-title">{userName}</div>
         </div>
         <div class="chatting-icon-wrap">
             <TopIcon chatTopIcon="/icons/searched.svg"/>
@@ -37,7 +45,9 @@
         </div>
     </div>
     <div class="chat-window-wrap">
-        <SpeechBubble mySpeechBubble={myMessage}/>
+        {#each chatRecord as chat}
+            <SpeechBubble mySpeechBubble={chat}/>
+        {/each}
     </div>
     <div class="text-input-wrap">
         <input bind:value={mySpeech}/>
@@ -108,13 +118,14 @@
         width: 100%;
         flex-grow: 1;
         display: flex;
+        flex-direction: column;
+        justify-content: end;
         align-items: flex-end;
     }
 
     .text-input-wrap {
         width: 100%;
         height: 110px;
-        padding-top: 20px;
     }
 
     .text-input-wrap input {
