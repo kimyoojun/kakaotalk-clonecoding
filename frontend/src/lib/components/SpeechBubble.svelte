@@ -1,22 +1,23 @@
 <script>
   export let mySpeechBubble = ""
+  export let chatClass = ""
 </script>
 
-<div class="speech-wrap">
-  <div class="speech">
+<div class="{chatClass}-wrap">
+  <div class={chatClass}>
     {mySpeechBubble}
   </div>
 </div>
 
 <style>
-  .speech-wrap {
+  .mychat-wrap {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: flex-end;
   }
 
-  .speech {
+  .mychat {
     background-color: #fef01b;
     margin-right: 20px;
     margin-bottom: 20px;
@@ -29,15 +30,14 @@
     border-radius: 4px;
   }
 
-  /* .speech-wrap {
+  .userchat-wrap {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: flex-start;
   }
 
-
-  .speech {
+  .userchat {
     background-color: #ffffff;
     margin-left: 20px;
     margin-bottom: 20px;
@@ -48,6 +48,6 @@
     height: auto;
     padding: 8px 8px;
     border-radius: 4px;
-  } */
+  }
 
 </style>
