@@ -8,3 +8,4 @@ class Message(SQLModel, table=True):
   user_list: List[str] = Field(sa_column=Column(JSON))
   my_msg: List[int] = Field(sa_column=Column(JSON))
   user_msg: List[int] = Field(sa_column=Column(JSON))
+  
