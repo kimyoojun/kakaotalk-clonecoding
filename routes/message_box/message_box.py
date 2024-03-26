@@ -45,6 +45,7 @@ async def chatting(req:IMessage_create):
     participation.append(user.uuid)
 
     message = Message(
+      create_user=req.my_uuid,
       uuid=str(chat_uuid),
       user_list=participation
     )
@@ -72,9 +73,27 @@ async def my_message(req: IMessage_send):
     else:
       newChat = chatting_inform.message
     newChat.append(req.message)
+
+    chat_len = len(newChat) - 1
+    
+    if chatting_inform.create_user == req.myuuid:
+      if chatting_inform.my_msg is None:
+        my_msgindex = []
+      else:
+        my_msgindex = chatting_inform.my_msg
+      my_msgindex.append(chat_len)
+      user_msgindex = chatting_inform.user_msg
+    else:
+      if chatting_inform.user_msg is None:
+        user_msgindex = []
+      else:
+        user_msgindex = chatting_inform.user_msg
+      user_msgindex.append(chat_len)
+      my_msgindex = chatting_inform.my_msg
+
       
   try:
-      update_chat = update(Message).where(Message.uuid == req.chatuuid).values(message = newChat)
+      update_chat = update(Message).where(Message.uuid == req.chatuuid).values(message = newChat, my_msg = my_msgindex, user_msg = user_msgindex)
       session.exec(update_chat)
       session.commit()
   except Exception as e:
