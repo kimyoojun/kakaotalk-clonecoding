@@ -21,6 +21,7 @@
   const friendAddBtn = async () => {
     console.log("추가")
     const friendadd = await axios.post("http://127.0.0.1:8000/user/add", {"my_name": localStorage.getItem('username'), "user_name": userIform})
+    location.reload()
   }
 
 </script>
