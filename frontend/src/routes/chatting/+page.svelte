@@ -2,8 +2,9 @@
     import TopIcon from "$lib/components/chatting/TopIcon.svelte"
     import BottomIcon from "$lib/components/chatting/BottomIcon.svelte"
     import SpeechBubble from "$lib/components/SpeechBubble.svelte"
-    import { onMount } from "svelte";
+    import { onMount } from "svelte"
     import axios from "axios"
+  import { page } from "$app/stores"
 
     let mySpeech = ""
     let chatUserUuid = ""
@@ -14,8 +15,10 @@
     let myMsg = ""
     let userMsg = ""
     let createUser = ""
+    let ws
 
     onMount(async () => {
+        ws = new WebSocket('ws://localhost:8000/ws')
         chatUserUuid = localStorage.getItem("chatuseruuid")
         chatUuid = localStorage.getItem("chatuuid")
         myuuid = localStorage.getItem("myuuid")
@@ -26,9 +29,10 @@
         myMsg = chatInform.data[1].my_msg
         userMsg = chatInform.data[1].user_msg
         createUser = chatInform.data[1].create_user
-        console.log(chatRecord)
-        console.log(myMsg)
-        console.log(userMsg)
+
+        ws.onmessage = function (event) {
+            location.reload()
+    }
     })
 
     const sendClick = async () => {
@@ -36,8 +40,17 @@
 
         if (msgBubble.status == 200) {
             console.log("메세지 전송에 성공하였습니다")
+            mySpeech = ""
         }
+        
+        if (ws.readyState === WebSocket.OPEN){
+            ws.send(mySpeech)
+            console.log("연결")
+        }
+        
     }
+
+    
 </script>
 
 <div class="chatting-wrap">
@@ -57,24 +70,28 @@
     </div>
     <div class="chat-window-wrap">
         {#each chatRecord as chat, i}
-            {#each myMsg as msg}
-                {#if msg === i}
-                    {#if myuuid === createUser}
-                        <SpeechBubble mySpeechBubble={chat} chatClass="mychat"/>
-                    {:else}
-                        <SpeechBubble mySpeechBubble={chat} chatClass="userchat"/>
+            {#if myMsg}
+                {#each myMsg as msg}
+                    {#if msg === i}
+                        {#if myuuid === createUser}
+                            <SpeechBubble mySpeechBubble={chat} chatClass="mychat"/>
+                        {:else}
+                            <SpeechBubble mySpeechBubble={chat} chatClass="userchat"/>
+                        {/if}
                     {/if}
-                {/if}
-            {/each}
-            {#each userMsg as umsg}
-                {#if umsg === i}
-                    {#if myuuid === createUser}
-                        <SpeechBubble mySpeechBubble={chat} chatClass="userchat"/>
-                    {:else}
-                        <SpeechBubble mySpeechBubble={chat} chatClass="mychat"/>
+                {/each}
+            {/if}
+            {#if userMsg}
+                {#each userMsg as umsg}
+                    {#if umsg === i}
+                        {#if myuuid === createUser}
+                            <SpeechBubble mySpeechBubble={chat} chatClass="userchat"/>
+                        {:else}
+                            <SpeechBubble mySpeechBubble={chat} chatClass="mychat"/>
+                        {/if}
                     {/if}
-                {/if}
-            {/each}
+                {/each}
+            {/if}
         {/each}
     </div>
     <div class="text-input-wrap">
