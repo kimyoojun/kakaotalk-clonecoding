@@ -47,7 +47,6 @@
             ws.send(mySpeech)
             console.log("연결")
         }
-        
     }
 
     
