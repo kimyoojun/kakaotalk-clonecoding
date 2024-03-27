@@ -4,7 +4,6 @@
     import SpeechBubble from "$lib/components/SpeechBubble.svelte"
     import { onMount } from "svelte"
     import axios from "axios"
-  import { page } from "$app/stores"
 
     let mySpeech = ""
     let chatUserUuid = ""
