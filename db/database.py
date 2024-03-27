@@ -9,3 +9,5 @@ async def init_db():
 async def drop_db():
   SQLModel.metadata.drop_all(engine)
 
+
+
