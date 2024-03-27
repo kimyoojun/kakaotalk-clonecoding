@@ -6,8 +6,4 @@ async def init_db():
   SQLModel.metadata.create_all(engine)
 
 
-async def drop_db():
-  SQLModel.metadata.drop_all(engine)
-
-
 
