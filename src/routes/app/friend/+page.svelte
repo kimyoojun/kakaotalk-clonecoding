@@ -28,7 +28,7 @@
     }
 
     const chatMove = async (i) => {
-        const chatting = await axios.post(url + "/message", {"my_uuid": myuuid, "user_name": friendsList[i]})
+        const chatting = await axios.post(url + "message", {"my_uuid": myuuid, "user_name": friendsList[i]})
         localStorage.setItem('chatuseruuid', chatting.data[1].uuid)  
         localStorage.setItem('chatuuid', chatting.data[2])
         console.log(chatting)

@@ -22,7 +22,7 @@
         chatUserUuid = localStorage.getItem("chatuseruuid")
         chatUuid = localStorage.getItem("chatuuid")
         myuuid = localStorage.getItem("myuuid")
-        const chatInform = await axios.post(url + "/message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
+        const chatInform = await axios.post(url + "message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
         console.log(chatInform)
         userName = chatInform.data[0]
         chatRecord = chatInform.data[1].message
