@@ -7,11 +7,12 @@
   let registerId = ""
   let registerName = ""
   let registerPw = ""
+  const url = import.meta.env.KOKOATALK_HOST
 
   const registerbtn = async () => {
     console.log(registerName, registerEmail ,registerId ,registerPw)
     
-    const registerAPI = await axios.post("http://127.0.0.1:8000/auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
+    const registerAPI = await axios.post(url + "auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
     if (registerAPI.status == 200) {
       window.location.href="/"
     }

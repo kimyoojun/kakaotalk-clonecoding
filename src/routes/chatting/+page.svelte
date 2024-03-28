@@ -5,6 +5,7 @@
     import { onMount } from "svelte"
     import axios from "axios"
 
+    const url = import.meta.env.KOKOATALK_HOST
     let mySpeech = ""
     let chatUserUuid = ""
     let chatUuid = ""
@@ -21,7 +22,7 @@
         chatUserUuid = localStorage.getItem("chatuseruuid")
         chatUuid = localStorage.getItem("chatuuid")
         myuuid = localStorage.getItem("myuuid")
-        const chatInform = await axios.post("http://127.0.0.1:8000/message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
+        const chatInform = await axios.post(url + "message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
         console.log(chatInform)
         userName = chatInform.data[0]
         chatRecord = chatInform.data[1].message
@@ -35,7 +36,7 @@
     })
 
     const sendClick = async () => {
-        const msgBubble = await axios.post("http://127.0.0.1:8000/message/send", {"message": mySpeech, "chatuuid": chatUuid, "myuuid": myuuid})
+        const msgBubble = await axios.post(url + "message/send", {"message": mySpeech, "chatuuid": chatUuid, "myuuid": myuuid})
 
         if (msgBubble.status == 200) {
             console.log("메세지 전송에 성공하였습니다")

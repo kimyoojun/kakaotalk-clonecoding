@@ -10,6 +10,7 @@
     let usertoken = ""
     let friendsList = ""
     let myuuid = ""
+    const url = import.meta.env.KOKOATALK_HOST
 
 
     onMount(async () => {
@@ -17,7 +18,7 @@
         usertoken = localStorage.getItem('token')
         myuuid = localStorage.getItem('myuuid')
 
-        const friendList = await axios.post("http://127.0.0.1:8000/friendlist",{"my_token": usertoken})
+        const friendList = await axios.post(url + "friendlist",{"my_token": usertoken})
 
         friendsList = friendList.data
     })
@@ -27,11 +28,11 @@
     }
 
     const chatMove = async (i) => {
-        const chatting = await axios.post("http://127.0.0.1:8000/message", {"my_uuid": myuuid, "user_name": friendsList[i]})
+        const chatting = await axios.post(url + "message", {"my_uuid": myuuid, "user_name": friendsList[i]})
         localStorage.setItem('chatuseruuid', chatting.data[1].uuid)  
         localStorage.setItem('chatuuid', chatting.data[2])
         console.log(chatting)
-        window.location.href="http://localhost:5173/chatting"
+        window.location.href=url + "chatting"
         
     }
 </script>
