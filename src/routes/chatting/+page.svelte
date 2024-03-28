@@ -5,7 +5,7 @@
     import { onMount } from "svelte"
     import axios from "axios"
 
-    const url = import.meta.env.KOKOATALK_HOST
+    const url = import.meta.env.KOKOAPI_HOST
     let mySpeech = ""
     let chatUserUuid = ""
     let chatUuid = ""

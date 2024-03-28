@@ -5,7 +5,7 @@
 
   let loginId = ""
   let loginPw = ""
-  const url = import.meta.env.KOKOATALK_HOST
+  const url = import.meta.env.KOKOAPI_HOST
 
   const loginBtn = async () => {
     const loginAPI = await axios.post(url + "/auth/login", {"id": loginId, "pw": loginPw})

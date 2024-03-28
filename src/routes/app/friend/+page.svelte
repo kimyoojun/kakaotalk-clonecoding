@@ -10,7 +10,7 @@
     let usertoken = ""
     let friendsList = ""
     let myuuid = ""
-    const url = import.meta.env.KOKOATALK_HOST
+    const url = import.meta.env.KOKOAPI_HOST
 
 
     onMount(async () => {
