@@ -7,12 +7,11 @@
   let registerId = ""
   let registerName = ""
   let registerPw = ""
-  let apiUrl = import.meta.env.KOKOAPI_HOST
 
   const registerbtn = async () => {
     console.log(registerName, registerEmail ,registerId ,registerPw)
     
-    const registerAPI = await axios.post(`${apiUrl}/auth/register`, {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
+    const registerAPI = await axios.post("/auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
     console.log(apiUrl)
     if (registerAPI.status == 200) {
       window.location.href="/"

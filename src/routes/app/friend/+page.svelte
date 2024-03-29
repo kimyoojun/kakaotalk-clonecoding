@@ -10,7 +10,6 @@
     let usertoken = ""
     let friendsList = ""
     let myuuid = ""
-    let url = import.meta.env.KOKOAPI_HOST
 
 
     onMount(async () => {
@@ -18,7 +17,7 @@
         usertoken = localStorage.getItem('token')
         myuuid = localStorage.getItem('myuuid')
 
-        const friendList = await axios.post(url + "/friendlist",{"my_token": usertoken})
+        const friendList = await axios.post("/friendlist",{"my_token": usertoken})
 
         friendsList = friendList.data
     })
@@ -28,7 +27,7 @@
     }
 
     const chatMove = async (i) => {
-        const chatting = await axios.post(url + "/message", {"my_uuid": myuuid, "user_name": friendsList[i]})
+        const chatting = await axios.post("/message", {"my_uuid": myuuid, "user_name": friendsList[i]})
         localStorage.setItem('chatuseruuid', chatting.data[1].uuid)  
         localStorage.setItem('chatuuid', chatting.data[2])
         console.log(chatting)

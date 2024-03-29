@@ -5,10 +5,9 @@
 
   let loginId = ""
   let loginPw = ""
-  let url = import.meta.env.KOKOAPI_HOST
 
   const loginBtn = async () => {
-    const loginAPI = await axios.post(url + "/auth/login", {"id": loginId, "pw": loginPw})
+    const loginAPI = await axios.post("/auth/login", {"id": loginId, "pw": loginPw})
     
     if (loginAPI.status == 200){
       window.location.href="/app/friend"
