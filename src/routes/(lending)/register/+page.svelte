@@ -7,7 +7,7 @@
   let registerId = ""
   let registerName = ""
   let registerPw = ""
-  const url = import.meta.env.KOKOAPI_HOST
+  const url = "https://port-0-kokoatalk-api-44rk2blu9bhspu.sel5.cloudtype.app/"
 
   const registerbtn = async () => {
     console.log(registerName, registerEmail ,registerId ,registerPw)
