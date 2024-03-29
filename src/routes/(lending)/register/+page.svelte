@@ -12,7 +12,6 @@
     console.log(registerName, registerEmail ,registerId ,registerPw)
     
     const registerAPI = await axios.post("/auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
-    console.log(apiUrl)
     if (registerAPI.status == 200) {
       window.location.href="/"
     }
