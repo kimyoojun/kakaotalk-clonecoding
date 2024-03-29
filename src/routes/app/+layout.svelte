@@ -8,7 +8,7 @@
     <NavBar>
         <div class="sidebar-icon-wrap">
             <TopIcorn topIcon="/icons/sidebar/profile.svg" topIconTitle="친구" pageMove="/app/friend"/>
-            <TopIcorn topIcon="/icons/sidebar/chat.svg" topIconTitle="채팅" pageMove="/app/chat"/>
+            <TopIcorn topIcon="/icons/sidebar/chat.svg" topIconTitle="채팅"/>
             <TopIcorn topIcon="/icons/sidebar/more.svg" topIconTitle="더보기"/>
         </div>
         <div class="sidebar-icon-wrap">
