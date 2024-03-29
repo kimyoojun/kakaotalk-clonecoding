@@ -1,3 +1,4 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = import.meta.env.VITE_KOKOAPI_HOST
+axios.defaults.baseURL =
+  'https://port-0-kokoatalk-api-44rk2blu9bhspu.sel5.cloudtype.app/'
