@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import InputBox from "$lib/components/InputBox.svelte"
   import Btn from "$lib/components/Btn.svelte"
   import axios from "axios";
@@ -7,7 +7,7 @@
   let registerId = ""
   let registerName = ""
   let registerPw = ""
-  const url = import.meta.env.KOKOAPI_HOST
+  const url:string = import.meta.env.KOKOAPI_HOST
 
   const registerbtn = async () => {
     console.log(registerName, registerEmail ,registerId ,registerPw)
