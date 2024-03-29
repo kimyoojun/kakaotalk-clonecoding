@@ -5,7 +5,7 @@
     import { onMount } from "svelte"
     import axios from "axios"
 
-    const url = import.meta.env.KOKOAPI_HOST
+    let url = import.meta.env.KOKOAPI_HOST
     let mySpeech = ""
     let chatUserUuid = ""
     let chatUuid = ""
@@ -22,7 +22,7 @@
         chatUserUuid = localStorage.getItem("chatuseruuid")
         chatUuid = localStorage.getItem("chatuuid")
         myuuid = localStorage.getItem("myuuid")
-        const chatInform = await axios.post(url + "message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
+        const chatInform = await axios.post(url + "/message/window", {"useruuid": chatUserUuid, "chatuuid": chatUuid})
         console.log(chatInform)
         userName = chatInform.data[0]
         chatRecord = chatInform.data[1].message

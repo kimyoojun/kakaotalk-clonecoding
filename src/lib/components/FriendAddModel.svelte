@@ -4,7 +4,7 @@
 
   let searchFriend = ""
   let userIform = ""
-  const url = import.meta.env.KOKOAPI_HOST
+  let url = import.meta.env.KOKOAPI_HOST
 
   const handleButtonClick = () => {
     $isToggleStore.friendAdd = !$isToggleStore.friendAdd
@@ -13,7 +13,7 @@
   const friendAdd = async (event) => {
     if (event.key === "Enter") {
       console.log(searchFriend,"클릭")
-      const friendselect = await axios.post(url + "user/select", {"name": searchFriend})
+      const friendselect = await axios.post(url + "/user/select", {"name": searchFriend})
       console.log(friendselect.data.name)
       userIform = friendselect.data.name
     }
@@ -21,7 +21,7 @@
 
   const friendAddBtn = async () => {
     console.log("추가")
-    const friendadd = await axios.post(url + "user/add", {"my_name": localStorage.getItem('username'), "user_name": userIform})
+    const friendadd = await axios.post(url + "/user/add", {"my_name": localStorage.getItem('username'), "user_name": userIform})
     location.reload()
   }
 

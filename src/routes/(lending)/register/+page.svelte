@@ -7,12 +7,12 @@
   let registerId = ""
   let registerName = ""
   let registerPw = ""
-  const url = "https://port-0-kokoatalk-api-44rk2blu9bhspu.sel5.cloudtype.app/"
+  let url = import.meta.env.KOKOAPI_HOST
 
   const registerbtn = async () => {
     console.log(registerName, registerEmail ,registerId ,registerPw)
     
-    const registerAPI = await axios.post(url + "auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
+    const registerAPI = await axios.post(url + "/auth/register", {"name": registerName, "email": registerEmail, "id": registerId, "pw": registerPw})
     if (registerAPI.status == 200) {
       window.location.href="/"
     }
