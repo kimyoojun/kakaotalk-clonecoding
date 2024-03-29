@@ -17,7 +17,7 @@
     let ws
 
     onMount(async () => {
-        ws = new WebSocket('https://port-0-kokoatalk-44rk2blu9bhspu.sel5.cloudtype.app/ws')
+        ws = new WebSocket('wss://port-0-kokoatalk-44rk2blu9bhspu.sel5.cloudtype.app/ws')
         chatUserUuid = localStorage.getItem("chatuseruuid")
         chatUuid = localStorage.getItem("chatuuid")
         myuuid = localStorage.getItem("myuuid")
