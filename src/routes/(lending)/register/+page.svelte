@@ -7,7 +7,7 @@
   let registerId = ""
   let registerName = ""
   let registerPw = ""
-  let url = import.meta.env.VITE_KOKOAPI_HOST
+  let url = import.meta.env.KOKOAPI_HOST
 
   const registerbtn = async () => {
     console.log(registerName, registerEmail ,registerId ,registerPw)
